@@ -1018,48 +1018,63 @@
                 <h1 class="fixed-text">Contact Me</h1>
                 <div class="row">
                     <div class="col-lg-6">
-                        <form action="assets/mail/contact.php" method="POST" class="contact-form contact-form">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <input class="form-control" id="name" name="name" placeholder="Name" type="text">
-                                        <span class="alert-error"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input class="form-control" id="email" name="email" placeholder="Email*" type="email">
-                                        <span class="alert-error"></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input class="form-control" id="phone" name="phone" placeholder="Phone" type="text">
-                                        <span class="alert-error"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group comments">
-                                        <textarea class="form-control" id="comments" name="comments" placeholder="Tell Us About Project *"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <button class="btn-style-regular" type="submit" name="submit" id="submit">
-                                        <span>Get in Touch</span> <i class="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- Alert Message -->
-                            <div class="col-lg-12 alert-notification">
-                                <div id="message" class="alert-msg"></div>
-                            </div>
-                        </form>
+                        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+
+    <!-- Web3Forms Access Key -->
+    <input type="hidden" name="access_key" value="cdb36e08-3aa6-4786-93ab-1718863f1989">
+
+    <!-- Optional -->
+    <input type="hidden" name="subject" value="New Portfolio Contact">
+    <input type="hidden" name="from_name" value="Vikas Portfolio">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                <span class="alert-error"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input class="form-control" id="email" name="email" placeholder="Email*" type="email" required>
+                <span class="alert-error"></span>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <input class="form-control" id="phone" name="phone" placeholder="Phone" type="text">
+                <span class="alert-error"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="form-group comments">
+                <textarea class="form-control" id="comments" name="message" placeholder="Tell Us About Project *" required></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <button class="btn-style-regular" type="submit">
+                <span>Get in Touch</span>
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Alert Message -->
+    <div class="col-lg-12 alert-notification">
+        <div id="message" class="alert-msg"></div>
+    </div>
+
+</form>
                     </div>
                 </div>
 
