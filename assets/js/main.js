@@ -266,18 +266,23 @@
 			});
 		}
 
-		/* ==================================================
+	/* ==================================================
         Contact Form - Web3Forms
 ================================================== */
+
 $('.contact-form').each(function () {
+
     var formInstance = $(this);
 
     formInstance.submit(function (e) {
+
         e.preventDefault();
 
-        var action = $(this).attr('action');
+        var form = $(this);
+        var action = form.attr('action');
 
         $("#message").slideUp(750, function () {
+
             $('#message').hide();
 
             $('#submit')
@@ -286,58 +291,67 @@ $('.contact-form').each(function () {
 
             $.ajax({
                 url: action,
-                method: "POST",
+                type: "POST",
+                dataType: "json",
                 data: {
                     access_key: "cdb36e08-3aa6-4786-93ab-1718863f1989",
                     subject: "New Portfolio Contact",
                     from_name: "Vikas Portfolio",
+
                     name: $('#name').val(),
                     email: $('#email').val(),
                     phone: $('#phone').val(),
                     message: $('#comments').val()
                 },
+
                 success: function (response) {
+
+                    $('.contact-form img.loader').fadeOut('slow', function () {
+                        $(this).remove();
+                    });
+
+                    $('#submit').removeAttr('disabled');
 
                     if (response.success) {
 
                         $('#message').html(
-                            "<div class='alert alert-success'>✅ Thank you! Your message has been sent successfully.</div>"
+                            "<div class='alert alert-success'><strong>Thank You!</strong><br>Your message has been sent successfully.</div>"
                         ).slideDown('slow');
 
-                        $('.contact-form')[0].reset();
+                        form[0].reset();
 
                     } else {
 
                         $('#message').html(
-                            "<div class='alert alert-danger'>❌ " + response.message + "</div>"
+                            "<div class='alert alert-danger'>" + response.message + "</div>"
                         ).slideDown('slow');
+
                     }
 
-                    $('.contact-form img.loader').fadeOut('slow', function () {
-                        $(this).remove();
-                    });
-
-                    $('#submit').removeAttr('disabled');
-
                 },
+
                 error: function () {
 
-                    $('#message').html(
-                        "<div class='alert alert-danger'>Something went wrong.</div>"
-                    ).slideDown('slow');
-
                     $('.contact-form img.loader').fadeOut('slow', function () {
                         $(this).remove();
                     });
 
                     $('#submit').removeAttr('disabled');
+
+                    $('#message').html(
+                        "<div class='alert alert-danger'>Something went wrong. Please try again.</div>"
+                    ).slideDown('slow');
+
                 }
+
             });
 
         });
 
         return false;
+
     });
+
 });
 
 
