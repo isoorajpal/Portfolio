@@ -267,40 +267,78 @@
 		}
 
 		/* ==================================================
-		    Contact Form Validations
-		================================================== */
-		$('.contact-form').each(function() {
-			var formInstance = $(this);
-			formInstance.submit(function() {
+        Contact Form - Web3Forms
+================================================== */
+$('.contact-form').each(function () {
+    var formInstance = $(this);
 
-				var action = $(this).attr('action');
+    formInstance.submit(function (e) {
+        e.preventDefault();
 
-				$("#message").slideUp(750, function() {
-					$('#message').hide();
+        var action = $(this).attr('action');
 
-					$('#submit')
-						.after('<img src="assets/img/ajax-loader.gif" class="loader" />')
-						.attr('disabled', 'disabled');
+        $("#message").slideUp(750, function () {
+            $('#message').hide();
 
-					$.post(action, {
-							name: $('#name').val(),
-							email: $('#email').val(),
-							phone: $('#phone').val(),
-							comments: $('#comments').val()
-						},
-						function(data) {
-							document.getElementById('message').innerHTML = data;
-							$('#message').slideDown('slow');
-							$('.contact-form img.loader').fadeOut('slow', function() {
-								$(this).remove()
-							});
-							$('#submit').removeAttr('disabled');
-						}
-					);
-				});
-				return false;
-			});
-		});
+            $('#submit')
+                .after('<img src="assets/img/ajax-loader.gif" class="loader" />')
+                .attr('disabled', 'disabled');
+
+            $.ajax({
+                url: action,
+                method: "POST",
+                data: {
+                    access_key: "cdb36e08-3aa6-4786-93ab-1718863f1989",
+                    subject: "New Portfolio Contact",
+                    from_name: "Vikas Portfolio",
+                    name: $('#name').val(),
+                    email: $('#email').val(),
+                    phone: $('#phone').val(),
+                    message: $('#comments').val()
+                },
+                success: function (response) {
+
+                    if (response.success) {
+
+                        $('#message').html(
+                            "<div class='alert alert-success'>✅ Thank you! Your message has been sent successfully.</div>"
+                        ).slideDown('slow');
+
+                        $('.contact-form')[0].reset();
+
+                    } else {
+
+                        $('#message').html(
+                            "<div class='alert alert-danger'>❌ " + response.message + "</div>"
+                        ).slideDown('slow');
+                    }
+
+                    $('.contact-form img.loader').fadeOut('slow', function () {
+                        $(this).remove();
+                    });
+
+                    $('#submit').removeAttr('disabled');
+
+                },
+                error: function () {
+
+                    $('#message').html(
+                        "<div class='alert alert-danger'>Something went wrong.</div>"
+                    ).slideDown('slow');
+
+                    $('.contact-form img.loader').fadeOut('slow', function () {
+                        $(this).remove();
+                    });
+
+                    $('#submit').removeAttr('disabled');
+                }
+            });
+
+        });
+
+        return false;
+    });
+});
 
 
 	}); // end document ready function
